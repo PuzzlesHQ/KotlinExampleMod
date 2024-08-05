@@ -14,12 +14,12 @@ public class MainMenuMixin {
 
     @Inject(method = "create", at = @At("HEAD"))
     private void create0(CallbackInfo ci) {
-        Constants.LOGGER.info("THE START OF THE MAIN MENU's create()");
+        Constants.INSTANCE.getLOGGER().info("THE START OF THE MAIN MENU's create()");
     }
 
     @Inject(method = "create", at = @At("TAIL"))
     private void create1(CallbackInfo ci) {
-        Constants.LOGGER.info("THE END OF THE MAIN MENU's create()");
+        Constants.INSTANCE.getLOGGER().info("THE END OF THE MAIN MENU's create()");
     }
 
     @Redirect(method = "create", at = @At(value = "INVOKE", target = "Lfinalforeach/cosmicreach/ui/UIElement;setText(Ljava/lang/String;)V", ordinal = 0))

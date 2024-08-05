@@ -1,5 +1,6 @@
 plugins {
     id "java"
+    id "org.jetbrains.kotlin.jvm"
     id "cr_puzzle_gradle"
     id "com.github.johnrengelman.shadow"
 }
@@ -12,17 +13,12 @@ repositories {
     mavenCentral()
 }
 
-// You can also use runClient task located in Tasks/puzzle/runClient
-tasks.register("runLoader", JavaExec) {
-    group = "loader"
-
-    workingDir = "$projectDir/run"
-
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = "com.github.puzzle.loader.launch.Piece"
+kotlin {
+    jvmToolchain(17)
 }
 
 dependencies {
+    mod "com.github.PuzzleLoader:puzzle-language-kotlin:1.0.2"
 }
 
 processResources {
