@@ -5,9 +5,9 @@ import com.github.puzzle.core.Identifier
 import com.github.puzzle.game.blockentities.ExtendedBlockEntity
 import com.github.puzzle.game.blockentities.IRenderable
 import com.github.puzzle.game.blockentities.ITickable
+import com.github.puzzle.game.util.BlockUtil
 import finalforeach.cosmicreach.blockentities.BlockEntityCreator
 import finalforeach.cosmicreach.blocks.Block
-import finalforeach.cosmicreach.blocks.BlockPosition
 import finalforeach.cosmicreach.blocks.BlockState
 import finalforeach.cosmicreach.world.Zone
 import org.example.exmod.Constants
@@ -35,11 +35,11 @@ class ExampleBlockEntity(zone: Zone?, x: Int, y: Int, z: Int) : ExtendedBlockEnt
     }
 
     override fun onTick(tps: Float) {
-        val above: BlockPosition = position.getOffsetBlockPos(position.chunk.region.zone, 0, 1, 0)
+        val above = BlockUtil.getBlockPosAtVec(zone, x, y, z).getOffsetBlockPos(zone, 0, 1, 0)
         val current = above.blockState
         if (current.block === Block.AIR) {
             above.blockState = Block.GRASS.defaultBlockState
-            above.flagTouchingChunksForRemeshing(position.chunk.region.zone, false)
+            above.flagTouchingChunksForRemeshing(zone, false)
         }
     }
 
