@@ -10,19 +10,11 @@ import org.example.exmod.Constants
 
 class ExamplePickaxe : IModItem {
 
-    var tagManifest: DataTagManifest = DataTagManifest()
-    var id: Identifier = Identifier(Constants.MOD_ID, "example_pickaxe")
+    private var tagManifest: DataTagManifest = DataTagManifest();
+    private var id: Identifier = Identifier(Constants.MOD_ID, "example_pickaxe")
 
-    fun ExamplePickaxe() {
-        tagManifest.addTag(
-            IModItem.TEXTURE_LOCATION_PRESET.createTag(
-                ResourceLocation(
-                    Constants.MOD_ID,
-                    "textures/items/example_pickaxe.png"
-                )
-            )
-        )
-        tagManifest.addTag(IModItem.MODEL_ID_PRESET.createTag(IModItem.MODEL_2_5D_ITEM))
+    init {
+        addTexture(IModItem.MODEL_2_5D_ITEM, ResourceLocation(Constants.MOD_ID, "textures/items/example_pickaxe.png"))
     }
 
     override fun isTool(): Boolean {
