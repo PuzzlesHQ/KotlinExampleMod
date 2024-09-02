@@ -5,13 +5,16 @@ import com.github.puzzle.core.Identifier
 import com.github.puzzle.game.blockentities.ExtendedBlockEntity
 import com.github.puzzle.game.blockentities.IRenderable
 import com.github.puzzle.game.util.BlockUtil
+import finalforeach.cosmicreach.blockentities.BlockEntity
 import finalforeach.cosmicreach.blockentities.BlockEntityCreator
 import finalforeach.cosmicreach.blocks.Block
 import finalforeach.cosmicreach.blocks.BlockState
 import finalforeach.cosmicreach.world.Zone
 import org.example.exmod.Constants
 
-class ExampleBlockEntity(zone: Zone?, x: Int, y: Int, z: Int) : ExtendedBlockEntity(zone, x, y, z), IRenderable {
+class ExampleBlockEntity(zone: Zone?, x: Int, y: Int, z: Int) : BlockEntity(zone, x, y, z), IRenderable {
+
+    val zone: Zone? = zone;
 
     companion object {
         var id: Identifier = Identifier(Constants.MOD_ID, "example_entity")
@@ -38,7 +41,7 @@ class ExampleBlockEntity(zone: Zone?, x: Int, y: Int, z: Int) : ExtendedBlockEnt
     }
 
     override fun onTick() {
-        val above = BlockUtil.getBlockPosAtVec(zone, x, y, z).getOffsetBlockPos(zone, 0, 1, 0)
+        val above = BlockUtil.getBlockPosAtVec(zone, globalX, globalY, globalZ).getOffsetBlockPos(zone, 0, 1, 0)
         val current = above.blockState
         if (current.block === Block.AIR) {
             above.blockState = Block.GRASS.defaultBlockState

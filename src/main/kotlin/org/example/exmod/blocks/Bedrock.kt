@@ -12,13 +12,17 @@ import finalforeach.cosmicreach.entities.player.Player
 import finalforeach.cosmicreach.ui.UI
 import finalforeach.cosmicreach.world.Zone
 import org.example.exmod.Constants
-import kotlin.collections.HashMap
+import java.util.*
 
 class Bedrock : IModBlock {
 
     val BLOCK_ID: Identifier = Identifier(Constants.MOD_ID, "bedrock")
     val BLOCK_NAME: String = "bedrock"
     val ALL_TEXTURE: ResourceLocation = ResourceLocation("base", "textures/blocks/lunar_soil.png")
+
+    override fun getIdentifier(): Identifier {
+        return BLOCK_ID
+    }
 
     override fun onBreak(zone: Zone?, player: Player?, blockState: BlockState?, position: BlockPosition?) {
         val slot = UI.hotbar.selectedSlot ?: return
