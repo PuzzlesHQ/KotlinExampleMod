@@ -1,23 +1,21 @@
 package org.example.exmod.block_entities
 
 import com.badlogic.gdx.graphics.Camera
-import com.github.puzzle.core.Identifier
-import com.github.puzzle.game.blockentities.ExtendedBlockEntity
-import com.github.puzzle.game.blockentities.IRenderable
 import com.github.puzzle.game.util.BlockUtil
 import finalforeach.cosmicreach.blockentities.BlockEntity
 import finalforeach.cosmicreach.blockentities.BlockEntityCreator
 import finalforeach.cosmicreach.blocks.Block
 import finalforeach.cosmicreach.blocks.BlockState
+import finalforeach.cosmicreach.util.Identifier
 import finalforeach.cosmicreach.world.Zone
 import org.example.exmod.Constants
 
-class ExampleBlockEntity(zone: Zone?, x: Int, y: Int, z: Int) : BlockEntity(zone, x, y, z), IRenderable {
+class ExampleBlockEntity(zone: Zone?, x: Int, y: Int, z: Int) : BlockEntity(zone, x, y, z) {
 
     val zone: Zone? = zone;
 
     companion object {
-        var id: Identifier = Identifier(Constants.MOD_ID, "example_entity")
+        var id: Identifier = Identifier.of(Constants.MOD_ID, "example_entity")
 
         fun register() {
             BlockEntityCreator.registerBlockEntityCreator(id.toString()
@@ -49,7 +47,4 @@ class ExampleBlockEntity(zone: Zone?, x: Int, y: Int, z: Int) : BlockEntity(zone
         }
     }
 
-    override fun onRender(camera: Camera?) {
-        // add custom rendering logic here
-    }
 }

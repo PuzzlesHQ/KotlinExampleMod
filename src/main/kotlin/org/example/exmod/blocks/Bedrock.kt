@@ -1,24 +1,23 @@
 package org.example.exmod.blocks
 
-import com.github.puzzle.core.Identifier
-import com.github.puzzle.core.resources.ResourceLocation
 import com.github.puzzle.game.block.IModBlock
 import com.github.puzzle.game.generators.BlockEventGenerator
 import com.github.puzzle.game.generators.BlockGenerator
+import com.github.puzzle.game.generators.BlockGenerator.State
 import com.github.puzzle.game.generators.BlockModelGenerator
 import finalforeach.cosmicreach.blocks.BlockPosition
 import finalforeach.cosmicreach.blocks.BlockState
 import finalforeach.cosmicreach.entities.player.Player
 import finalforeach.cosmicreach.ui.UI
+import finalforeach.cosmicreach.util.Identifier
 import finalforeach.cosmicreach.world.Zone
 import org.example.exmod.Constants
 import java.util.*
 
 class Bedrock : IModBlock {
 
-    val BLOCK_ID: Identifier = Identifier(Constants.MOD_ID, "bedrock")
-    val BLOCK_NAME: String = "bedrock"
-    val ALL_TEXTURE: ResourceLocation = ResourceLocation("base", "textures/blocks/lunar_soil.png")
+    val BLOCK_ID: Identifier = Identifier.of(Constants.MOD_ID, "bedrock")
+    val ALL_TEXTURE: Identifier = Identifier.of("base", "textures/blocks/lunar_soil.png")
 
     override fun getIdentifier(): Identifier {
         return BLOCK_ID
@@ -38,9 +37,11 @@ class Bedrock : IModBlock {
     }
 
     override fun getBlockGenerator(): BlockGenerator {
-        val generator = BlockGenerator(BLOCK_ID, BLOCK_NAME)
-        generator.createBlockState("default", "model", true, "events", true)
+        val generator = BlockGenerator(BLOCK_ID)
+        val s = generator.createBlockState("default", "model", true, "events", true)
         generator.addBlockEntity(Constants.MOD_ID + ":example_entity", HashMap<String, Any>())
+        s.stateGenerators = arrayOf()
+        s.tags = arrayOf()
         return generator
     }
 

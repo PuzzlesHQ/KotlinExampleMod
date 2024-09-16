@@ -27,8 +27,8 @@
     "example.mixins.json"
   ],
   "dependencies": {
-    "cosmic-reach": ">=0.2.0",
-    "puzzle-loader": ">=1.5.2",
+    "cosmic-reach": ">=0.3.1",
+    "puzzle-loader": ">=1.5.8",
     "puzzle-language-kotlin": ">=1.0.2"
   },
   "accessManipulator": "example_mod.manipulator"

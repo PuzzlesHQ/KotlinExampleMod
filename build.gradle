@@ -33,7 +33,6 @@ processResources {
             "mod_id"          : id,
     ]
 
-
     inputs.properties replaceProperties
     replaceProperties.put "project", project
     filesMatching(resourceTargets) {

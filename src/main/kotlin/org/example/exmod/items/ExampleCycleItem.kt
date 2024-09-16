@@ -1,19 +1,15 @@
 package org.example.exmod.items
 
-import com.github.puzzle.core.Identifier
 import com.github.puzzle.core.Puzzle
-import com.github.puzzle.core.resources.ResourceLocation
 import com.github.puzzle.game.items.IModItem
 import com.github.puzzle.game.items.ITickingItem
-import com.github.puzzle.game.items.data.DataTag
 import com.github.puzzle.game.items.data.DataTagManifest
-import com.github.puzzle.game.items.data.attributes.IntDataAttribute
 import com.github.puzzle.game.items.data.attributes.ListDataAttribute
-import com.github.puzzle.game.util.DataTagUtil
 import finalforeach.cosmicreach.entities.ItemEntity
 import finalforeach.cosmicreach.entities.player.Player
 import finalforeach.cosmicreach.items.ItemSlot
 import finalforeach.cosmicreach.items.ItemStack
+import finalforeach.cosmicreach.util.Identifier
 import finalforeach.cosmicreach.world.Zone
 import org.example.exmod.Constants
 import java.awt.Desktop
@@ -24,7 +20,7 @@ import java.net.URISyntaxException
 class ExampleCycleItem : IModItem, ITickingItem {
 
     private var tagManifest: DataTagManifest = DataTagManifest()
-    private var id: Identifier = Identifier(Constants.MOD_ID, "example_cycling_item")
+    private var id: Identifier = Identifier.of(Constants.MOD_ID, "example_cycling_item")
 
     override fun toString(): String {
         return id.toString()
@@ -35,28 +31,28 @@ class ExampleCycleItem : IModItem, ITickingItem {
     init {
         addTexture(
             IModItem.MODEL_2_5D_ITEM,
-            ResourceLocation(Puzzle.MOD_ID, "textures/items/null_stick.png"),
-            ResourceLocation("base", "textures/items/axe_stone.png"),
-            ResourceLocation("base", "textures/items/pickaxe_stone.png"),
-            ResourceLocation("base", "textures/items/shovel_stone.png"),
-            ResourceLocation("base", "textures/items/medkit.png"),
-            ResourceLocation(Puzzle.MOD_ID, "textures/items/block_wrench.png"),
-            ResourceLocation(Puzzle.MOD_ID, "textures/items/checker_board.png"),
-            ResourceLocation(Puzzle.MOD_ID, "textures/items/checker_board1.png"),
-            ResourceLocation(Puzzle.MOD_ID, "textures/items/checker_board2.png")
+            Identifier.of(Puzzle.MOD_ID, "textures/items/null_stick.png"),
+            Identifier.of("base", "textures/items/axe_stone.png"),
+            Identifier.of("base", "textures/items/pickaxe_stone.png"),
+            Identifier.of("base", "textures/items/shovel_stone.png"),
+            Identifier.of("base", "textures/items/medkit.png"),
+            Identifier.of(Puzzle.MOD_ID, "textures/items/block_wrench.png"),
+            Identifier.of(Puzzle.MOD_ID, "textures/items/checker_board.png"),
+            Identifier.of(Puzzle.MOD_ID, "textures/items/checker_board1.png"),
+            Identifier.of(Puzzle.MOD_ID, "textures/items/checker_board2.png")
         )
 
         addTexture(
             IModItem.MODEL_2D_ITEM,
-            ResourceLocation(Puzzle.MOD_ID, "textures/items/null_stick.png"),
-            ResourceLocation("base", "textures/items/axe_stone.png"),
-            ResourceLocation("base", "textures/items/pickaxe_stone.png"),
-            ResourceLocation("base", "textures/items/shovel_stone.png"),
-            ResourceLocation("base", "textures/items/medkit.png"),
-            ResourceLocation(Puzzle.MOD_ID, "textures/items/block_wrench.png"),
-            ResourceLocation(Puzzle.MOD_ID, "textures/items/checker_board.png"),
-            ResourceLocation(Puzzle.MOD_ID, "textures/items/checker_board1.png"),
-            ResourceLocation(Puzzle.MOD_ID, "textures/items/checker_board2.png")
+            Identifier.of(Puzzle.MOD_ID, "textures/items/null_stick.png"),
+            Identifier.of("base", "textures/items/axe_stone.png"),
+            Identifier.of("base", "textures/items/pickaxe_stone.png"),
+            Identifier.of("base", "textures/items/shovel_stone.png"),
+            Identifier.of("base", "textures/items/medkit.png"),
+            Identifier.of(Puzzle.MOD_ID, "textures/items/block_wrench.png"),
+            Identifier.of(Puzzle.MOD_ID, "textures/items/checker_board.png"),
+            Identifier.of(Puzzle.MOD_ID, "textures/items/checker_board1.png"),
+            Identifier.of(Puzzle.MOD_ID, "textures/items/checker_board2.png")
         )
 
         texture_count = (getTagManifest().getTag<Any>("textures").attribute as ListDataAttribute<*>).value.size - 1
@@ -90,17 +86,8 @@ class ExampleCycleItem : IModItem, ITickingItem {
         return false
     }
 
-    private fun getCurrentEntry(stack: ItemStack): Int {
-        val manifest = DataTagUtil.getManifestFromStack(stack)
-        if (!manifest.hasTag("currentEntry")) manifest.addTag(DataTag("currentEntry", IntDataAttribute(0)))
-        println(manifest.hasTag("currentEntry"))
-        return manifest.getTag<Any>("currentEntry").getTagAsType(Integer::class.java).value.toInt()
-    }
-
-    private fun setCurrentEntry(stack: ItemStack, entry: Int) {
-        val manifest = DataTagUtil.getManifestFromStack(stack)
-        manifest.addTag(DataTag("currentEntry", IntDataAttribute(entry)))
-        DataTagUtil.setManifestOnStack(manifest, stack)
+    override fun getName(): String {
+        return "Example Cycle Item"
     }
 
     override fun tickStack(fixedUpdateTimeStep: Float, stack: ItemStack, isBeingHeld: Boolean) {
