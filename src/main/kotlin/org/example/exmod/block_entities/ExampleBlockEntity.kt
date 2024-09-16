@@ -1,6 +1,5 @@
 package org.example.exmod.block_entities
 
-import com.badlogic.gdx.graphics.Camera
 import com.github.puzzle.game.util.BlockUtil
 import finalforeach.cosmicreach.blockentities.BlockEntity
 import finalforeach.cosmicreach.blockentities.BlockEntityCreator
@@ -30,12 +29,18 @@ class ExampleBlockEntity(zone: Zone?, x: Int, y: Int, z: Int) : BlockEntity(zone
         }
     }
 
-    override fun getBlockEntityId(): String {
-        return id.toString()
+    override fun onCreate(blockState: BlockState?) {
+        isTicking = true
+        super.onCreate(blockState)
     }
 
-    override fun isTicking(): Boolean {
-        return true
+    override fun onRemove() {
+        super.onRemove()
+        isTicking = false
+    }
+
+    override fun getBlockEntityId(): String {
+        return id.toString()
     }
 
     override fun onTick() {
