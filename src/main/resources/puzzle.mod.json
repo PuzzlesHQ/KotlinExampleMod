@@ -26,10 +26,12 @@
   "mixins": [
     "example.mixins.json"
   ],
-  "dependencies": {
-    "cosmic-reach": ">=0.3.1",
-    "puzzle-loader": ">=1.5.8",
-    "puzzle-language-kotlin": ">=1.0.2"
+  "depends": {
+    "cosmic-reach": ">=0.3.12",
+    "puzzle-loader": ">=2.1.15",
+    "puzzle-language-kotlin": ">=1.0.4"
   },
-  "accessManipulator": "example_mod.manipulator"
+  "accessTransformers": [
+    "example_mod.manipulator"
+  ]
 }

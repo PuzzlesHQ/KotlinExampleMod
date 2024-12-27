@@ -1,17 +1,13 @@
 package org.example.exmod.blocks
 
 import com.github.puzzle.game.block.IModBlock
-import com.github.puzzle.game.generators.BlockEventGenerator
-import com.github.puzzle.game.generators.BlockGenerator
-import com.github.puzzle.game.generators.BlockGenerator.State
-import com.github.puzzle.game.generators.BlockModelGenerator
-import finalforeach.cosmicreach.blocks.BlockPosition
-import finalforeach.cosmicreach.blocks.BlockState
-import finalforeach.cosmicreach.entities.player.Player
-import finalforeach.cosmicreach.ui.UI
+import com.github.puzzle.game.block.generators.BlockEventGenerator
+import com.github.puzzle.game.block.generators.BlockGenerator
+import com.github.puzzle.game.block.generators.model.BlockModelGenerator
+import finalforeach.cosmicreach.blockevents.BlockEventArgs
 import finalforeach.cosmicreach.util.Identifier
-import finalforeach.cosmicreach.world.Zone
 import org.example.exmod.Constants
+import org.example.exmod.api.PlayerExtension
 import java.util.*
 
 class Bedrock : IModBlock {
@@ -23,14 +19,14 @@ class Bedrock : IModBlock {
         return BLOCK_ID
     }
 
-    override fun onBreak(zone: Zone?, player: Player?, blockState: BlockState?, position: BlockPosition?) {
-        val slot = UI.hotbar.selectedSlot ?: return
+    override fun onBreak(args: BlockEventArgs?) {
+        val slot = (args!!.srcIdentity.player as PlayerExtension).heldItem
         if (slot.itemStack != null) {
             val selected = slot.itemStack.item
             val itemId = selected.id
             if (itemId.startsWith(BLOCK_ID.toString())) {
                 // make the block breakable when the player holds bedrock
-                super.onBreak(zone, player, blockState, position)
+                super.onBreak(args)
             }
         }
         // make the block unbreakable, by omitting the super call here

@@ -1,10 +1,10 @@
 package org.example.exmod
 
-import com.github.puzzle.core.PuzzleRegistries
+import com.github.puzzle.core.loader.provider.mod.entrypoint.impls.ModInitializer
 import com.github.puzzle.core.localization.ILanguageFile
 import com.github.puzzle.core.localization.LanguageManager
 import com.github.puzzle.core.localization.files.LanguageFileVersion1
-import com.github.puzzle.core.resources.PuzzleGameAssetLoader
+import com.github.puzzle.game.PuzzleRegistries
 import com.github.puzzle.game.block.DataModBlock
 import com.github.puzzle.game.events.OnPreLoadAssetsEvent
 import com.github.puzzle.game.events.OnRegisterBlockEvent
@@ -12,21 +12,21 @@ import com.github.puzzle.game.events.OnRegisterZoneGenerators
 import com.github.puzzle.game.items.IModItem
 import com.github.puzzle.game.items.impl.BasicItem
 import com.github.puzzle.game.items.impl.BasicTool
-import com.github.puzzle.loader.entrypoint.interfaces.ModInitializer
+import com.github.puzzle.game.resources.PuzzleGameAssetLoader
 import finalforeach.cosmicreach.util.Identifier
+import meteordevelopment.orbit.EventHandler
 import org.example.exmod.block_entities.ExampleBlockEntity
 import org.example.exmod.blocks.Bedrock
 import org.example.exmod.commands.Commands
 import org.example.exmod.items.ExampleCycleItem
 import org.example.exmod.items.ExamplePickaxe
 import org.example.exmod.worldgen.ExampleZoneGenerator
-import org.greenrobot.eventbus.Subscribe
 import java.io.IOException
 
 class ExampleMod : ModInitializer {
 
     override fun onInit() {
-        PuzzleRegistries.EVENT_BUS.register(this)
+        PuzzleRegistries.EVENT_BUS.post(this)
 
         Constants.LOGGER.info("Hello From INIT")
         ExampleBlockEntity.register()
@@ -39,7 +39,7 @@ class ExampleMod : ModInitializer {
         IModItem.registerItem(BasicTool(Identifier.of(Constants.MOD_ID, "stone_sword")))
     }
 
-    @Subscribe
+    @EventHandler
     fun onEvent(event: OnRegisterBlockEvent) {
         event.registerBlock {
             DataModBlock(
@@ -49,12 +49,12 @@ class ExampleMod : ModInitializer {
         event.registerBlock { Bedrock() }
     }
 
-    @Subscribe
+    @EventHandler
     fun onEvent(event: OnRegisterZoneGenerators) {
         event.registerGenerator { ExampleZoneGenerator() }
     }
 
-    @Subscribe
+    @EventHandler
     fun onEvent(event: OnPreLoadAssetsEvent?) {
         var lang: ILanguageFile? = null
         try {
