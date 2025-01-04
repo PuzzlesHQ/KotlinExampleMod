@@ -36,6 +36,7 @@ class Bedrock : IModBlock {
         val generator = BlockGenerator(BLOCK_ID)
         val s = generator.createBlockState("default", "model", true, "events", true)
         generator.addBlockEntity(Constants.MOD_ID + ":example_entity", HashMap<String, Any>())
+        s.langKey = "Bedrock" /* Adds Name to block state */
         s.stateGenerators = arrayOf()
         s.tags = arrayOf()
         return generator
